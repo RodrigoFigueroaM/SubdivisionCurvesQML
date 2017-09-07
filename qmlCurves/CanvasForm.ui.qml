@@ -5,10 +5,14 @@ Canvas {
     width: 400
     height: 400
 
+    //    Rectangle {
+    //        color: "#000"
+    //        anchors.fill: parent
+    //    }
     contextType: qsTr("2d")
-    property var points: []
+    property bool showConvexHull: true
+    property bool showSpline
     property var drawPoints: (function (points, length, color, linewidth) {
-
         var ctx = getContext('2d')
         ctx.strokeStyle = color
         ctx.lineWidth = linewidth
@@ -19,13 +23,31 @@ Canvas {
         }
         ctx.stroke()
     })
-    onPaint: {
-        var ctx = getContext('2d')
-        //        ctx.fillStyle = Qt.rgba(0.2, 0.2, 0.2, 1.0)
-        //        ctx.fillRect(0, 0, width, height)
+    property var drawConvexHull: (function () {
         canvas.drawPoints(spline.controlPoints(),
                           spline.controlPoints().length, Qt.rgba(0.7, 0.3,
                                                                  0.7, 1.0), 2)
+        canvas.requestPaint()
+    })
+    property var drawSpline: (function () {
+        spline.compute()
+        canvas.drawPoints(spline.points(), spline.points().length,
+                          Qt.rgba(0.2, 0.3, 1.0, 1.0), 2)
+        canvas.requestPaint()
+    })
+    property var clear: (function () {
+        var ctx = getContext('2d')
+        ctx.fillStyle = Qt.rgba(0.2, 0.2, 0.2, 1)
+        //        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.fillRect(0, 0, width, height)
+    })
+    onPaint: {
+        var ctx = getContext('2d')
+        canvas.clear()
+        if (showConvexHull)
+            drawConvexHull()
+        if (showSpline)
+            drawSpline()
     }
 
     MouseArea {
@@ -36,7 +58,6 @@ Canvas {
         property real lastX
         property real lastY
         onReleased: {
-            canvas.points.push(Qt.vector3d(mouseX, mouseY, 0))
             spline.addControlPoint(Qt.vector3d(mouseX, mouseY, 0))
             canvas.requestPaint()
         }

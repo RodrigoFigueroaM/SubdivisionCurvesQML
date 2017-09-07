@@ -32,6 +32,13 @@ public:
         return _points;
     }
 
+    Q_INVOKABLE void reset()
+    {
+        _controlPoints.clear();
+        _points.clear();
+    }
+
+
     Q_INVOKABLE void printControlPoints() const
     {
         qDebug() << "ControlPoints";

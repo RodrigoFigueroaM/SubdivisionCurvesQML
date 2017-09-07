@@ -6,70 +6,102 @@ Item {
     width: 200
     height: 480
 
-    property alias text: label.text
-
-    Connections {
-        target: button
-        onClicked: {
-            spline.compute()
-            canvasForm.drawPoints(spline.points(), spline.points().length,
-                                  Qt.rgba(0.6, 0.6, 0.0, 1.0), 5)
-            canvasForm.requestPaint()
-        }
+    CheckBox {
+        id: splineCheckBox
+        width: 200
+        text: qsTr("Spline")
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 413
+        anchors.left: parent.left
+        anchors.leftMargin: 0
+        anchors.top: parent.top
+        anchors.topMargin: 36
+        spacing: 2
+        clip: true
+        checkable: true
+        checked: false
     }
 
-    Column {
-        id: column
-        anchors.fill: parent
+    CheckBox {
+        id: convexHullCheckBox
+        height: 52
+        text: qsTr("Convex Hull")
+        clip: true
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 433
+        anchors.right: parent.left
+        anchors.rightMargin: -200
+        anchors.left: parent.right
+        anchors.leftMargin: -200
+        anchors.top: parent.top
+        anchors.topMargin: 14
+        checkable: true
+        checked: true
+    }
 
-        Button {
-            id: button
-            text: qsTr("Print")
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 432
-            anchors.right: parent.left
-            anchors.rightMargin: -200
-            anchors.left: parent.right
-            anchors.leftMargin: -200
-            anchors.top: parent.top
-            anchors.topMargin: 0
-            checkable: false
-            checked: false
-        }
+    Slider {
+        id: slider
+        clip: true
+        stepSize: 1
+        from: 1
+        to: 10
+        anchors.top: parent.top
+        anchors.topMargin: 88
+        anchors.right: parent.right
+        anchors.rightMargin: 0
+        anchors.left: parent.left
+        anchors.leftMargin: 0
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 352
+        value: 1
+        snapMode: "SnapAlways"
 
-        Slider {
-            id: slider
-            to: 10
-            from: 1
-            anchors.top: button.bottom
-            anchors.topMargin: 50
-            anchors.right: parent.right
-            anchors.rightMargin: 0
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 339
-            value: 1
-            stepSize: 1
-            snapMode: "SnapAlways"
-
-            Label {
-                id: label
-                text: qsTr("Depth: ")
-                anchors.right: parent.right
-                anchors.rightMargin: 153
-                anchors.left: parent.left
-                anchors.leftMargin: 0
-                anchors.top: parent.top
-                anchors.topMargin: -16
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 42
-            }
+        Label {
+            id: label
+            x: 10
+            y: -4
+            text: "Depth: " + Math.ceil(slider.value)
         }
     }
 
     Connections {
         target: slider
-        onMoved: print(slider.value)
+        onMoved: {
+            spline.setDepth(Math.ceil(slider.value))
+            canvasForm.drawSpline()
+        }
+    }
+
+    Connections {
+        target: convexHullCheckBox
+        onToggled: {
+            canvasForm.showConvexHull = convexHullCheckBox.checked
+            canvasForm.requestPaint()
+        }
+    }
+
+    Connections {
+        target: splineCheckBox
+        onToggled: {
+            canvasForm.showSpline = splineCheckBox.checked
+            canvasForm.drawSpline()
+        }
+    }
+
+    Button {
+        id: resetButton
+        x: 8
+        y: 154
+        width: 184
+        height: 30
+        text: qsTr("Reset")
+    }
+
+    Connections {
+        target: resetButton
+        onClicked: {
+            spline.reset()
+            canvasForm.requestPaint()
+        }
     }
 }

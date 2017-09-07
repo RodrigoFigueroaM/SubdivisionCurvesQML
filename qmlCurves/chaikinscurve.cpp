@@ -18,7 +18,6 @@ ChaikinsCurve::~ChaikinsCurve()
 void ChaikinsCurve::compute()
 {
     QList<QVariant> tempControlPoints(_controlPoints);
-    qDebug()<< _depth;
     for(int n = 0; n < _depth; n++)
     {
         _points.clear();
