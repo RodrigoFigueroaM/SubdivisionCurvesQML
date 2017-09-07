@@ -8,14 +8,11 @@ Item {
 
     CheckBox {
         id: splineCheckBox
-        width: 200
+        x: 4
+        y: 45
+        width: 188
+        height: 34
         text: qsTr("Spline")
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 413
-        anchors.left: parent.left
-        anchors.leftMargin: 0
-        anchors.top: parent.top
-        anchors.topMargin: 36
         spacing: 2
         clip: true
         checkable: true
@@ -24,35 +21,26 @@ Item {
 
     CheckBox {
         id: convexHullCheckBox
-        height: 52
+        x: 4
+        y: 15
+        width: 188
+        height: 33
         text: qsTr("Convex Hull")
         clip: true
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 433
-        anchors.right: parent.left
-        anchors.rightMargin: -200
-        anchors.left: parent.right
-        anchors.leftMargin: -200
-        anchors.top: parent.top
-        anchors.topMargin: 14
         checkable: true
         checked: true
     }
 
     Slider {
         id: slider
+        x: 4
+        y: 81
+        width: 188
+        height: 48
         clip: true
         stepSize: 1
         from: 1
         to: 10
-        anchors.top: parent.top
-        anchors.topMargin: 88
-        anchors.right: parent.right
-        anchors.rightMargin: 0
-        anchors.left: parent.left
-        anchors.leftMargin: 0
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 352
         value: 1
         snapMode: "SnapAlways"
 
@@ -91,7 +79,7 @@ Item {
     Button {
         id: resetButton
         x: 8
-        y: 154
+        y: 135
         width: 184
         height: 30
         text: qsTr("Reset")
