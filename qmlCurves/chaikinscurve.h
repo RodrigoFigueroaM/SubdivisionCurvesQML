@@ -13,7 +13,7 @@ public:
     static std::pair<QVector3D,QVector3D> chaikinsAlg( const QVector3D &p0, const QVector3D &p1);
     int dept()const
         {return _depth;}
-    void setDepth(const int &depth)
+    Q_INVOKABLE void setDepth(const int &depth)
         {_depth = depth;}
     ~ChaikinsCurve();
 private:
