@@ -4,10 +4,11 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     basecurve.cpp \
-    chaikinscurve.cpp
+    chaikinscurve.cpp \
+    beziercurve.cpp
 
 RESOURCES += qml.qrc
-
+QMAKE_CXXFLAGS += -std=c++11
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
 
@@ -32,4 +33,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     basecurve.h \
-    chaikinscurve.h
+    chaikinscurve.h \
+    beziercurve.h
