@@ -3,6 +3,7 @@
 #include <QQmlEngine>
 #include <QQmlContext>
 #include "chaikinscurve.h"
+#include "beziercurve.h"
 
 int main(int argc, char *argv[])
 {
@@ -11,8 +12,10 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
-    QScopedPointer<ChaikinsCurve> spline(new ChaikinsCurve);
-     engine.rootContext()->setContextProperty("spline", spline.data());
+
+    QScopedPointer<BezierCurve> spline(new BezierCurve);
+//    QScopedPointer<ChaikinsCurve> spline(new ChaikinsCurve);
+    engine.rootContext()->setContextProperty("spline", spline.data());
 
     if (engine.rootObjects().isEmpty())
         return -1;

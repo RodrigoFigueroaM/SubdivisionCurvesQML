@@ -1,24 +1,9 @@
 #include "chaikinscurve.h"
 
-ChaikinsCurve::ChaikinsCurve(QObject *parent)
-    :BaseSpline(parent), _depth(1)
-{}
-
-ChaikinsCurve::ChaikinsCurve(const QList<QVariant> &controlPoints)
-    :BaseSpline(controlPoints), _depth(1)
-{}
-
-ChaikinsCurve::ChaikinsCurve(const QList<QVariant> &controlPoints, int depth)
-    :BaseSpline(controlPoints), _depth(depth)
-{}
-
-ChaikinsCurve::~ChaikinsCurve()
-{}
-
 void ChaikinsCurve::compute()
 {
     QList<QVariant> tempControlPoints(_controlPoints);
-    for(int n = 0; n < _depth; n++)
+    for(int n = 0; n < BaseSpline::dept(); n++)
     {
         _points.clear();
         for(auto i = 0; i < tempControlPoints.size() - 1; i++)
@@ -39,3 +24,7 @@ std::pair<QVector3D,QVector3D> ChaikinsCurve::chaikinsAlg( const QVector3D &p0, 
     std::pair<QVector3D,QVector3D> result(3/4.0 * p0 + 1/4.0 * p1, 1/4.0 * p0 + 3/4.0 * p1 );
     return result;
 }
+
+ChaikinsCurve::~ChaikinsCurve()
+{}
+

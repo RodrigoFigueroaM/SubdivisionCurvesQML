@@ -15,7 +15,8 @@ class BaseSpline:public QObject
 
 public:
     explicit BaseSpline(QObject *parent = nullptr);
-    BaseSpline(const  QList<QVariant>  &controlPoints);
+    BaseSpline(const QList<QVariant>  &controlPoints);
+    BaseSpline(const QList<QVariant>  &controlPoints, int depth);
 
     Q_INVOKABLE QList<QVariant> controlPoints() const
     {
@@ -34,10 +35,9 @@ public:
 
     Q_INVOKABLE void reset()
     {
-        _controlPoints.clear();
+         _controlPoints.clear();
         _points.clear();
     }
-
 
     Q_INVOKABLE void printControlPoints() const
     {
@@ -60,13 +60,16 @@ public:
 
     Q_INVOKABLE virtual void compute() = 0;
     virtual ~BaseSpline();
-
+    int dept()const
+        {return _depth;}
+    Q_INVOKABLE void setDepth(const int &depth)
+        {_depth = depth;}
 protected:
     QList<QVariant> _controlPoints;
     QList<QVariant> _points;
 private:
     Q_OBJECT
-
+    int _depth;
 };
 
 

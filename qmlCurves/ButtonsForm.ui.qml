@@ -72,7 +72,7 @@ Item {
         target: splineCheckBox
         onToggled: {
             canvasForm.showSpline = splineCheckBox.checked
-            canvasForm.drawSpline()
+            //            canvasForm.requestPaint()
         }
     }
 

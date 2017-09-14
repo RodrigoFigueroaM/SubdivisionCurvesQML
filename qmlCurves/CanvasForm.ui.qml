@@ -11,7 +11,7 @@ Canvas {
     //    }
     contextType: qsTr("2d")
     property bool showConvexHull: true
-    property bool showSpline
+    property bool showSpline: false
     property var drawPoints: (function (points, length, color, linewidth) {
         var ctx = getContext('2d')
         ctx.strokeStyle = color
@@ -30,7 +30,9 @@ Canvas {
         canvas.requestPaint()
     })
     property var drawSpline: (function () {
-        spline.compute()
+        if (spline.controlPoints().length > 1) {
+            spline.compute()
+        }
         canvas.drawPoints(spline.points(), spline.points().length,
                           Qt.rgba(0.2, 0.3, 1.0, 1.0), 2)
         canvas.requestPaint()
