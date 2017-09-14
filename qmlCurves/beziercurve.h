@@ -6,10 +6,11 @@ class BezierCurve: public BaseSpline
 {
 public:
     using BaseSpline::BaseSpline;
-    QList<QVariant> close(const QList<QVariant>& controlPoints);
     Q_INVOKABLE void compute();
-    static QVector3D computeBezier(const QVector3D & self, const QVector3D & next);
+    static QVector3D computeHalfHalf(const QVector3D & self, const QVector3D & next);
     ~BezierCurve();
+private:
+    QList<QVariant> computeBezier(const QList<QVariant>& controlPoints);
 };
 
 #endif // BEZIERCURVE_H

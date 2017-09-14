@@ -5,7 +5,7 @@ CONFIG += c++11
 SOURCES += main.cpp \
     basecurve.cpp \
     chaikinscurve.cpp \
-    beziercurve.cpp
+    beziercurve.cpp \
 
 RESOURCES += qml.qrc
 QMAKE_CXXFLAGS += -std=c++11
@@ -34,4 +34,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     basecurve.h \
     chaikinscurve.h \
-    beziercurve.h
+    beziercurve.h \

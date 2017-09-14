@@ -3,7 +3,7 @@
 #include <QQueue>
 #include <QStack>
 
-QList<QVariant> BezierCurve::close(const QList<QVariant>& controlPoints)
+QList<QVariant> BezierCurve::computeBezier(const QList<QVariant>& controlPoints)
 {
     QList<QVariant> tempControlPoints(controlPoints);
     QList<QVariant> tempSplinePoint;
@@ -15,7 +15,7 @@ QList<QVariant> BezierCurve::close(const QList<QVariant>& controlPoints)
         tempSplinePoint.clear();
         for(int i = 0; i < tempControlPoints.size() - 1; i++)
         {
-            tempSplinePoint.push_back(BezierCurve::computeBezier(tempControlPoints[i].value<QVector3D>(),
+            tempSplinePoint.push_back(BezierCurve::computeHalfHalf(tempControlPoints[i].value<QVector3D>(),
                                             tempControlPoints[i + 1].value<QVector3D>()));
         }
         left.enqueue(tempSplinePoint[0]);
@@ -34,10 +34,18 @@ QList<QVariant> BezierCurve::close(const QList<QVariant>& controlPoints)
 
 void BezierCurve::compute()
 {
-    _points = close(_controlPoints);
+
+    QList<QVariant> tempControlPoints(_controlPoints);
+    QList<QVariant> tempSplinePoint;
+    for (int n = 0; n < BaseSpline::dept(); n++)
+    {
+        _points.clear();
+        tempControlPoints = computeBezier(tempControlPoints);
+        _points = tempControlPoints;
+    }
 }
 
-QVector3D BezierCurve::computeBezier(const QVector3D & self, const QVector3D & next)
+QVector3D BezierCurve::computeHalfHalf(const QVector3D & self, const QVector3D & next)
 {
     return 0.5 * self + 0.5 * next;
 }

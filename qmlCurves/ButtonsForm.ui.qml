@@ -40,7 +40,7 @@ Item {
         clip: true
         stepSize: 1
         from: 1
-        to: 10
+        to: 5
         value: 1
         snapMode: "SnapAlways"
 
@@ -72,7 +72,6 @@ Item {
         target: splineCheckBox
         onToggled: {
             canvasForm.showSpline = splineCheckBox.checked
-            //            canvasForm.requestPaint()
         }
     }
 
@@ -91,5 +90,30 @@ Item {
             spline.reset()
             canvasForm.requestPaint()
         }
+    }
+
+    Image {
+        id: image
+        x: 50
+        y: 190
+        width: 100
+        height: 100
+        //        source: "graphics/bezier-curve.png"
+        anchors.verticalCenterOffset: 0
+        anchors.verticalCenter: parent.verticalCenter
+        //                source: applicationPath + "/graphics/bezier-curve-2.png"
+        source: "file:" + "/Users/rui/Desktop/githubStuff/curves++/ChaikinsCurveQML/qmlCurves/graphics/bezier-curve-2.png"
+        //        source: applicationPath + "../../../../graphic/bezier-curve-2.png"
+    }
+
+    Image {
+        id: image1
+        x: 50
+        y: 323
+        width: 100
+        height: 100
+        source: "file:" + "/Users/rui/Desktop/githubStuff/curves++/ChaikinsCurveQML/qmlCurves/graphics/chaikin.png"
+
+        //        source: "qrc:/qtquickplugin/images/template_image.png"
     }
 }

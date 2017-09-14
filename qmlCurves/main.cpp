@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
 
     QScopedPointer<BezierCurve> spline(new BezierCurve);
 //    QScopedPointer<ChaikinsCurve> spline(new ChaikinsCurve);
+    engine.rootContext()->setContextProperty("applicationPath", "file://"+qApp->applicationDirPath()+ "/");
     engine.rootContext()->setContextProperty("spline", spline.data());
 
     if (engine.rootObjects().isEmpty())
