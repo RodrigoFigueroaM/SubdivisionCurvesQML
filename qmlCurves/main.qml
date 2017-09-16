@@ -19,7 +19,7 @@ ApplicationWindow {
         anchors.left: parent.left
         anchors.leftMargin: 0
         anchors.right: parent.right
-        anchors.rightMargin: 245
+        anchors.rightMargin: 204
 
 
     }
@@ -27,9 +27,9 @@ ApplicationWindow {
     ButtonsForm {
         id: buttonsForm
         anchors.left: canvasForm.right
-        anchors.leftMargin: 24
+        anchors.leftMargin: 1
         anchors.right: parent.right
-        anchors.rightMargin: 21
+        anchors.rightMargin: 0
         anchors.top: parent.top
         anchors.topMargin: 0
         anchors.bottom: parent.bottom

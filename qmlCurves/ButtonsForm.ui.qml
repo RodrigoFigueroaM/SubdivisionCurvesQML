@@ -6,6 +6,11 @@ Item {
     width: 200
     height: 480
 
+    Rectangle {
+        color: "#c9c9c9"
+        anchors.fill: parent
+    }
+
     CheckBox {
         id: splineCheckBox
         x: 4
@@ -25,7 +30,10 @@ Item {
         y: 15
         width: 188
         height: 33
+
         text: qsTr("Convex Hull")
+        font.weight: Font.Thin
+        font.family: "Verdana"
         clip: true
         checkable: true
         checked: true
@@ -55,7 +63,7 @@ Item {
     Connections {
         target: slider
         onMoved: {
-            spline.setDepth(Math.ceil(slider.value))
+            canvasForm.spline.setDepth(Math.ceil(slider.value))
             canvasForm.drawSpline()
         }
     }
@@ -76,44 +84,85 @@ Item {
     }
 
     Button {
-        id: resetButton
+        id: resetBttn
         x: 8
-        y: 135
+        y: 130
         width: 184
         height: 30
         text: qsTr("Reset")
     }
-
-    Connections {
-        target: resetButton
-        onClicked: {
-            spline.reset()
-            canvasForm.requestPaint()
-        }
+    Button {
+        id: clearBttn
+        x: 8
+        y: 154
+        width: 184
+        height: 30
+        text: qsTr("Clear")
     }
 
-    Image {
-        id: image
+    Button {
+        id: bezierBttn
         x: 50
         y: 190
         width: 100
         height: 100
-        //        source: "graphics/bezier-curve.png"
-        anchors.verticalCenterOffset: 0
-        anchors.verticalCenter: parent.verticalCenter
-        //                source: applicationPath + "/graphics/bezier-curve-2.png"
-        source: "file:" + "/Users/rui/Desktop/githubStuff/curves++/ChaikinsCurveQML/qmlCurves/graphics/bezier-curve-2.png"
-        //        source: applicationPath + "../../../../graphic/bezier-curve-2.png"
+        background: Image {
+            id: image
+            anchors.fill: parent
+            //        source: "graphics/bezier-curve.png"
+            //                source: applicationPath + "/graphics/bezier-curve-2.png"
+            source: "file:" + "/Users/rui/Desktop/githubStuff/curves++/ChaikinsCurveQML/qmlCurves/graphics/bezier-curve-2.png"
+            //        source: applicationPath + "../../../../graphic/bezier-curve-2.png"
+        }
+        ToolTip.visible: hovered
+        ToolTip.text: qsTr("Bezier Spline")
     }
-
-    Image {
-        id: image1
+    Button {
+        id: chaikinBttn
         x: 50
         y: 323
         width: 100
         height: 100
-        source: "file:" + "/Users/rui/Desktop/githubStuff/curves++/ChaikinsCurveQML/qmlCurves/graphics/chaikin.png"
+        background: Image {
+            id: image1
+            anchors.fill: parent
+            source: "file:" + "/Users/rui/Desktop/githubStuff/curves++/ChaikinsCurveQML/qmlCurves/graphics/chaikin.png"
 
-        //        source: "qrc:/qtquickplugin/images/template_image.png"
+            //        source: "qrc:/qtquickplugin/images/template_image.png"
+        }
+        ToolTip.visible: hovered
+        ToolTip.text: qsTr("Chaikins Spline")
+    }
+
+    Connections {
+        target: bezierBttn
+        onClicked: {
+            controller.addBezier()
+            print(controller.splines().length)
+        }
+    }
+
+    Connections {
+        target: chaikinBttn
+        onClicked: {
+            controller.addChaikins()
+            print(controller.splines().length)
+        }
+    }
+
+    Connections {
+        target: resetBttn
+        onClicked: {
+            canvasForm.spline.reset()
+            canvasForm.requestPaint()
+        }
+    }
+
+    Connections {
+        target: clearBttn
+        onClicked: {
+            controller.clearSplines()
+            canvasForm.requestPaint()
+        }
     }
 }

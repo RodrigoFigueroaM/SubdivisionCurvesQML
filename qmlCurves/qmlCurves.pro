@@ -6,6 +6,8 @@ SOURCES += main.cpp \
     basecurve.cpp \
     chaikinscurve.cpp \
     beziercurve.cpp \
+    curvelist.cpp \
+    controller.cpp
 
 RESOURCES += qml.qrc
 QMAKE_CXXFLAGS += -std=c++11
@@ -35,3 +37,4 @@ HEADERS += \
     basecurve.h \
     chaikinscurve.h \
     beziercurve.h \
+    controller.h
